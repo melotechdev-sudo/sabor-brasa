@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regra simples: qualquer pessoa pode ler e escrever nos documentos
+    // da coleção "appdata" (onde o app guarda pedidos, produtos, clientes, etc).
+    // Isso é suficiente pra o app funcionar, mas é ABERTO — qualquer pessoa
+    // com o link do app consegue mexer nos dados. Antes de divulgar o app
+    // de verdade, vale estudar Firebase Authentication + regras mais restritas.
+    match /appdata/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
